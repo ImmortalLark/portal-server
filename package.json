@@ -1,0 +1,24 @@
+{
+  "name": "portal-server",
+  "version": "1.0.0",
+  "description": "portal远端服务，负责转发请求及管理和客户端的连接",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0",
+    "string-random": "^0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://g.hz.netease.com/NeteaseMusicUI/portal/server.git"
+  },
+  "author": "fengfan",
+  "license": "ISC"
+}
