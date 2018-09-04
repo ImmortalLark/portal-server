@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "koa": "^2.5.2",
+    "koa-body": "^4.0.4",
     "koa-router": "^7.4.0",
     "string-random": "^0.1.0"
   },
