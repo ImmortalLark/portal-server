@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-09-04 16:30:17
+ * @Last Modified time: 2018-09-05 09:31:45
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -11,15 +11,22 @@ const ServerManager = require('./lib/server-manager');
 
 const PORT = process.argv[2];
 const supdomain = process.argv[3];
+const maxServerCount = process.argv[4];
 
 const app = new Koa();
 const router = new Router();
-const serverManager = new ServerManager();
+const serverManager = new ServerManager({ maxServerCount });
 
 // api request 
 router.get('/portal/connect', async (ctx) => {
     let { subdomain, port } = ctx.query;
     const result = serverManager.createServer({ subdomain, port });
+    if (!result) {
+        ctx.body = {
+            msg: "已达到最大连接数"
+        }
+        return;
+    }
     const { server } = result;
     const address = await server.address;
     subdomain = result.subdomain;
