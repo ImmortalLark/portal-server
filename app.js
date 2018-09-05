@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-09-05 09:31:45
+ * @Last Modified time: 2018-09-05 17:24:30
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -31,18 +31,21 @@ router.get('/portal/connect', async (ctx) => {
     const address = await server.address;
     subdomain = result.subdomain;
     port = address.port;
-    ctx.body = { domain: `${subdomain}.${supdomain}`, port: address.port };
+    ctx.body = { subdomain: `${subdomain}`, port: address.port };
 });
 
 app.use(koaBody());
 app.use(router.routes());
 app.use(router.allowedMethods());
 // 转发请求至对应的客户端
-app.use(async (ctx, next) => {
+app.use(async (ctx) => {
     const subdomain = ctx.host.split(`.${supdomain}`)[0];
     const server = serverManager.getServer(subdomain);
-    server && server.transmit(ctx);
-    await next();
+    if(server) {
+        const res = await server.transmit(ctx);
+        ctx.res.headers = res.headers;
+        ctx.body = res.body;
+    }
 });
 
 app.listen(PORT || 3000, () => {
