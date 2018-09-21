@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "@music/node-startup": "^1.0.2",
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
     "koa-router": "^7.4.0",
