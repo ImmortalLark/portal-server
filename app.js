@@ -2,14 +2,14 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-09-21 10:38:17
+ * @Last Modified time: 2018-09-21 11:21:28
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const Router = require('koa-router');
 const ServerManager = require('./lib/server-manager');
 
-const PORT = process.env.ENV_PROT;
+const PORT = +process.env.ENV_PORT;
 const supdomain = process.argv[3] || 'qa.igame.163.com';
 
 const app = new Koa();
