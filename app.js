@@ -2,15 +2,15 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-09-21 11:21:28
+ * @Last Modified time: 2018-11-15 14:41:32
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const Router = require('koa-router');
 const ServerManager = require('./lib/server-manager');
 
-const PORT = +process.env.ENV_PORT;
-const supdomain = process.argv[3] || 'qa.igame.163.com';
+const PORT = +process.env.ENV_PORT; // set ENV_PORT=xxx
+const supdomain = process.argv[2] || 'qa.igame.163.com';
 
 const app = new Koa();
 const router = new Router();
@@ -36,14 +36,14 @@ app.use(async (ctx) => {
     ctx.respond = false;
     const subdomain = ctx.host.split(`.${supdomain}`)[0];
     const server = serverManager.getServer(subdomain);
-    if (!server) return;
+    if (!server) return console.info('error: no server');
     if (server.agent.destroyed) {
         serverManager.removeServer(subdomain);
-        return;
+        return console.info('error: server destryed');
     }
     server.transmit(ctx);
 });
 
 app.listen(PORT || 3000, () => {
-    console.log(`开始监听${PORT}端口`);
+    console.log(`开始监听${PORT || 3000}端口`);
 });
