@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-11-19 15:35:24
+ * @Last Modified time: 2018-11-19 16:25:37
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -35,10 +35,21 @@ app.use(router.allowedMethods());
 app.use(async (ctx) => {
     ctx.respond = false;
     const subdomain = ctx.host.split(`.${supdomain}`)[0];
+    console.log(process.argv, subdomain, supdomain)
     const server = serverManager.getServer(subdomain);
-    if (!server) return console.info('error: no server');
+    if (!server) {
+        ctx.body = {
+            code: 500,
+            msg: 'error: no server'
+        }
+        return console.info('error: no server');
+    }
     if (server.agent.destroyed) {
         serverManager.removeServer(subdomain);
+        ctx.body = {
+            code: 500,
+            msg: 'error: server destroyed'
+        }
         return console.info('error: server destroyed');
     }
     server.transmit(ctx);
