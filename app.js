@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-11-15 14:41:32
+ * @Last Modified time: 2018-11-19 15:35:24
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -39,7 +39,7 @@ app.use(async (ctx) => {
     if (!server) return console.info('error: no server');
     if (server.agent.destroyed) {
         serverManager.removeServer(subdomain);
-        return console.info('error: server destryed');
+        return console.info('error: server destroyed');
     }
     server.transmit(ctx);
 });
