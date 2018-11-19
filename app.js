@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-11-19 16:25:37
+ * @Last Modified time: 2018-11-19 16:29:11
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -10,7 +10,7 @@ const Router = require('koa-router');
 const ServerManager = require('./lib/server-manager');
 
 const PORT = +process.env.ENV_PORT; // set ENV_PORT=xxx
-const supdomain = process.argv[2] || 'qa.igame.163.com';
+const supdomain = process.argv[2] || 'portal.qa.igame.163.com';
 
 const app = new Koa();
 const router = new Router();
@@ -35,7 +35,6 @@ app.use(router.allowedMethods());
 app.use(async (ctx) => {
     ctx.respond = false;
     const subdomain = ctx.host.split(`.${supdomain}`)[0];
-    console.log(process.argv, subdomain, supdomain)
     const server = serverManager.getServer(subdomain);
     if (!server) {
         ctx.body = {
