@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-11-19 16:29:11
+ * @Last Modified time: 2018-11-19 16:37:19
  */
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -32,7 +32,7 @@ app.use(koaBody());
 app.use(router.routes());
 app.use(router.allowedMethods());
 // 转发请求至对应的客户端
-app.use(async (ctx) => {
+app.use((ctx) => {
     ctx.respond = false;
     const subdomain = ctx.host.split(`.${supdomain}`)[0];
     const server = serverManager.getServer(subdomain);
