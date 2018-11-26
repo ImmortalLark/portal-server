@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-11-26 10:34:59
+ * @Last Modified time: 2018-11-26 16:22:21
  */
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -52,7 +52,7 @@ app.use(async (ctx, next) => {
   }
   const res = await connection.transmit(ctx);
   Object.assign(ctx.res, res);
-  ctx.body = res;
+  ctx.body = res.body;
 });
 app.listen(PORT || 3000, () => {
   console.log(`开始监听${PORT || 3000}端口`);
