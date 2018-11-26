@@ -2,10 +2,11 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-11-21 20:54:21
+ * @Last Modified time: 2018-11-26 10:34:59
  */
 const Koa = require('koa');
 const Router = require('koa-router');
+const koaBody = require('koa-body');
 const ConnectionManager = require('./lib/connection-manager');
 const logger = require('./lib/utils/logger');
 
@@ -22,17 +23,17 @@ let connectionManager = new ConnectionManager(io);
 router.get('/portal/connect', async (ctx, next) => {
   let { subdomain } = ctx.query;
   subdomain = connectionManager.createConnection({ subdomain, ctx });
+  logger.info('new domain:', subdomain);
   // subdomain有可能更新过，所以用返回的subdomain
   ctx.body = { 
     subdomain
   };
 });
-
+app.use(koaBody());
 app.use(router.routes());
 app.use(router.allowedMethods());
 // 转发请求至对应的客户端
-app.use((ctx) => {
-  ctx.respond = false;
+app.use(async (ctx, next) => {
   const subdomain = ctx.host.split(`.${supdomain}`)[0];
   const connection = connectionManager.getConnection(subdomain);
   if (!connection) {
@@ -49,9 +50,10 @@ app.use((ctx) => {
     }
     return logger.error('no connection');
   }
-  connection.transmit(ctx.req);
+  const res = await connection.transmit(ctx);
+  Object.assign(ctx.res, res);
+  ctx.body = res;
 });
-
 app.listen(PORT || 3000, () => {
   console.log(`开始监听${PORT || 3000}端口`);
 })
