@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-12-24 16:26:57
+ * @Last Modified time: 2018-12-25 10:07:46
  */
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -51,7 +51,7 @@ app.use(async (ctx, next) => {
     return logger.error('no connection');
   }
   const res = await connection.transmit(ctx);
-  ctx.status = res.statusCode;
+  ctx.status = +res.statusCode;
   ctx.message = res.statusMessage;
   // 删除影响页面展示的头
   delete res.headers['content-encoding'];
