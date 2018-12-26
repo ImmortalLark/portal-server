@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-12-25 10:07:46
+ * @Last Modified time: 2018-12-26 16:57:31
  */
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -54,9 +54,11 @@ app.use(async (ctx, next) => {
   ctx.status = +res.statusCode;
   ctx.message = res.statusMessage;
   // 删除影响页面展示的头
-  delete res.headers['content-encoding'];
-  delete res.headers['content-security-policy']; 
-  ctx.set(res.headers);
+  if (res.headers) {
+    delete res.headers['content-encoding'];
+    delete res.headers['content-security-policy']; 
+    ctx.set(res.headers);
+  }
   ctx.body = res.body;
 });
 app.listen(PORT || 3000, () => {
