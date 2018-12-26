@@ -12,7 +12,8 @@
     "koa-router": "^7.4.0",
     "log4js": "^3.0.6",
     "socket.io": "1.7.4",
-    "string-random": "^0.1.0"
+    "string-random": "^0.1.0",
+    "@music/node-startup": "^1.0.2"
   },
   "devDependencies": {},
   "scripts": {
