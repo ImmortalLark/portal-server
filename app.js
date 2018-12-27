@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-12-26 16:57:31
+ * @Last Modified time: 2018-12-27 19:07:44
  */
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -11,8 +11,7 @@ const ConnectionManager = require('./lib/connection-manager');
 const logger = require('./lib/utils/logger');
 
 const PORT = +process.env.ENV_PORT; // set ENV_PORT=xxx
-const supdomain = process.argv[2] || 'portal.qa.igame.163.com';
-
+const supdomain = process.argv[2] || 'testcase.com';
 const app = new Koa();
 const router = new Router();
 const httpServer = require('http').Server(app.callback());
@@ -61,9 +60,9 @@ app.use(async (ctx, next) => {
   }
   ctx.body = res.body;
 });
-app.listen(PORT || 3000, () => {
-  console.log(`开始监听${PORT || 3000}端口`);
+app.listen(PORT + parseInt(process.env.NODE_APP_INSTANCE || 0) || 3000, () => {
+  console.log(`开始监听${PORT || 3000}端口\n`);
 })
-httpServer.listen(2000, () => {
-  console.log(`socket.io 开始监听2000端口`);
+httpServer.listen(2000 + parseInt(process.env.NODE_APP_INSTANCE || 0), () => {
+  console.log(`socket.io 开始监听${2000 + parseInt(process.env.NODE_APP_INSTANCE || 0)}端口\n`);
 });
