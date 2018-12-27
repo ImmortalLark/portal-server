@@ -2,7 +2,7 @@
  * @Author: Feng fan
  * @Date: 2018-09-03 14:37:21
  * @Last Modified by: Feng fan
- * @Last Modified time: 2018-12-27 19:07:44
+ * @Last Modified time: 2018-12-27 19:51:08
  */
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -11,7 +11,7 @@ const ConnectionManager = require('./lib/connection-manager');
 const logger = require('./lib/utils/logger');
 
 const PORT = +process.env.ENV_PORT; // set ENV_PORT=xxx
-const supdomain = process.argv[2] || 'testcase.com';
+const supdomain = process.argv[2] || 'portal.qa.igame.163.com';
 const app = new Koa();
 const router = new Router();
 const httpServer = require('http').Server(app.callback());
