@@ -7,7 +7,6 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@music/node-startup": "^1.0.2",
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
     "koa-router": "^7.4.0",
@@ -24,8 +23,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://g.hz.netease.com/NeteaseMusicUI/portal/server.git"
+    "url": "https://github.com/ImmortalLark/portal-server.git"
   },
-  "author": "fengfan",
+  "author": "ImmortalLark",
   "license": "ISC"
 }
