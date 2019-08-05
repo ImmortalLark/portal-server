@@ -24,19 +24,19 @@ pm2 cluster + nginx iphash
 # nginx 配置
 upstream socket_nodes {
     ip_hash;
-    server hzbdg-music-overmind110.server.163.org:2000;
-    server hzbdg-music-overmind110.server.163.org:2001;
+    server server.test.com:2000;
+    server server.test.com:2001;
 }
 
 upstream http_nodes {
     ip_hash;
-    server hzbdg-music-overmind110.server.163.org:3000;
-    server hzbdg-music-overmind110.server.163.org:3001;
+    server server.test.com:3000;
+    server server.test.com:3001;
 }
 server {
-    server_name ~^(\D+\.)?portal\.qa.igame.163.com;
-    access_log /home/srv/log/music-portal-access.log main;
-    error_log /home/srv/log/music-portal-error.log;
+    server_name ~^(\D+\.)?portal\.server.test.com;
+    access_log /home/srv/log/portal-access.log main;
+    error_log /home/srv/log/portal-error.log;
 
     location /socket {
         proxy_pass http://socket_nodes;
